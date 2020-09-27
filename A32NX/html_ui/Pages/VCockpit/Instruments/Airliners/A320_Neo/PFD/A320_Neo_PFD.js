@@ -57,7 +57,6 @@ class A320_Neo_PFD_MainPage extends NavSystemPage {
     }
     init() {
         super.init();
-
         this.getDeltaTime = A32NX_Util.createDeltaTimeCalculator(this._lastTime);
         this.showILS = SimVar.GetSimVarValue("L:BTN_LS_FILTER_ACTIVE", "bool");
         this.ils.showILS(this.showILS);

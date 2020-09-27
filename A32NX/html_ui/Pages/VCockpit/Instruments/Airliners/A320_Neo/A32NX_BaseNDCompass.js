@@ -147,20 +147,20 @@ class Jet_NDCompass extends HTMLElement {
         this.destroyLayout();
         switch (this.displayMode) {
             case Jet_NDCompass_Display.ROSE:
-                {
-                    this.constructRose();
-                    break;
-                }
+            {
+                this.constructRose();
+                break;
+            }
             case Jet_NDCompass_Display.ARC:
-                {
-                    this.constructArc();
-                    break;
-                }
+            {
+                this.constructArc();
+                break;
+            }
             case Jet_NDCompass_Display.PLAN:
-                {
-                    this.constructPlan();
-                    break;
-                }
+            {
+                this.constructPlan();
+                break;
+            }
         }
     }
     constructArc() {
@@ -187,7 +187,9 @@ class Jet_NDCompass extends HTMLElement {
         this.updateCompass(_deltaTime);
         this.updateNavigationInfo();
         this.updateMapRange();
-        if (this.updateFail) this.updateFail();
+
+        // Moved to A32NX_NDCompass.update()
+        // if (this.updateFail) this.updateFail();
     }
     updateCompass(_deltaTime) {
         var simHeading = SimVar.GetSimVarValue("PLANE HEADING DEGREES MAGNETIC", "degree");
@@ -219,7 +221,7 @@ class Jet_NDCompass extends HTMLElement {
                     this.currentRefMode.textContent = "HDG";
                 }
             }
-        
+
             // This stuff makes the compass do a smooth spin to the actual heading after alignment finishes
             const desiredRotationHeading = SimVar.GetSimVarValue("L:A320_Neo_ADIRS_STATE", "Number") !== 2
                 ? 0
@@ -229,7 +231,7 @@ class Jet_NDCompass extends HTMLElement {
                 this._delayedCompass += delta * Math.min(1, 4 * (_deltaTime / 1000));
                 compass = this._delayedCompass;
             }
-        
+
             var roundedCompass = fastToFixed(compass, 2);
             this.setAttribute("rotation", roundedCompass);
             if (this.currentRefGroup)
@@ -465,81 +467,81 @@ class Jet_NDCompass extends HTMLElement {
                 this.setAttribute("display_vertical_deviation", displayVerticalDeviation ? "True" : "False");
                 switch (this.logic_brg1Source) {
                     case 1:
-                        {
-                            let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:1", "boolean");
-                            if (hasNav) {
-                                this.setAttribute("bearing1_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:1", "degree")) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing1_bearing", "");
-                            }
-                            break;
+                    {
+                        let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:1", "boolean");
+                        if (hasNav) {
+                            this.setAttribute("bearing1_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:1", "degree")) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing1_bearing", "");
+                        }
+                        break;
+                    }
                     case 2:
-                        {
-                            let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:2", "boolean");
-                            if (hasNav) {
-                                this.setAttribute("bearing1_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:2", "degree")) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing1_bearing", "");
-                            }
-                            break;
+                    {
+                        let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:2", "boolean");
+                        if (hasNav) {
+                            this.setAttribute("bearing1_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:2", "degree")) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing1_bearing", "");
+                        }
+                        break;
+                    }
                     case 3:
-                        {
-                            this.setAttribute("bearing1_bearing", SimVar.GetSimVarValue("GPS WP BEARING", "degree"));
-                            break;
-                        }
+                    {
+                        this.setAttribute("bearing1_bearing", SimVar.GetSimVarValue("GPS WP BEARING", "degree"));
+                        break;
+                    }
                     case 4:
-                        {
-                            if (SimVar.GetSimVarValue("ADF SIGNAL:1", "number")) {
-                                this.setAttribute("bearing1_bearing", ((SimVar.GetSimVarValue("ADF RADIAL:1", "degree") + compass) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing1_bearing", "");
-                            }
-                            break;
+                    {
+                        if (SimVar.GetSimVarValue("ADF SIGNAL:1", "number")) {
+                            this.setAttribute("bearing1_bearing", ((SimVar.GetSimVarValue("ADF RADIAL:1", "degree") + compass) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing1_bearing", "");
+                        }
+                        break;
+                    }
                 }
                 switch (this.logic_brg2Source) {
                     case 1:
-                        {
-                            let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:1", "boolean");
-                            if (hasNav) {
-                                this.setAttribute("bearing2_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:1", "degree")) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing2_bearing", "");
-                            }
-                            break;
+                    {
+                        let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:1", "boolean");
+                        if (hasNav) {
+                            this.setAttribute("bearing2_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:1", "degree")) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing2_bearing", "");
+                        }
+                        break;
+                    }
                     case 2:
-                        {
-                            let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:2", "boolean");
-                            if (hasNav) {
-                                this.setAttribute("bearing2_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:2", "degree")) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing2_bearing", "");
-                            }
-                            break;
+                    {
+                        let hasNav = SimVar.GetSimVarValue("NAV HAS NAV:2", "boolean");
+                        if (hasNav) {
+                            this.setAttribute("bearing2_bearing", ((180 + SimVar.GetSimVarValue("NAV RADIAL:2", "degree")) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing2_bearing", "");
+                        }
+                        break;
+                    }
                     case 3:
-                        {
-                            this.setAttribute("bearing2_bearing", SimVar.GetSimVarValue("GPS WP BEARING", "degree"));
-                            break;
-                        }
+                    {
+                        this.setAttribute("bearing2_bearing", SimVar.GetSimVarValue("GPS WP BEARING", "degree"));
+                        break;
+                    }
                     case 4:
-                        {
-                            if (SimVar.GetSimVarValue("ADF SIGNAL:1", "number")) {
-                                this.setAttribute("bearing2_bearing", ((SimVar.GetSimVarValue("ADF RADIAL:1", "degree") + compass) % 360).toString());
-                            }
-                            else {
-                                this.setAttribute("bearing2_bearing", "");
-                            }
-                            break;
+                    {
+                        if (SimVar.GetSimVarValue("ADF SIGNAL:2", "number")) {
+                            this.setAttribute("bearing2_bearing", ((SimVar.GetSimVarValue("ADF RADIAL:2", "degree") + compass) % 360).toString());
                         }
+                        else {
+                            this.setAttribute("bearing2_bearing", "");
+                        }
+                        break;
+                    }
                 }
             }
             else {
