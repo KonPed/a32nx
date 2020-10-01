@@ -228,37 +228,37 @@ class Jet_MFD_NDInfo extends HTMLElement {
         if (this.topTitle != null) {
             switch (this._navMode) {
                 case Jet_NDCompass_Navigation.NAV:
-                {
-                    let ilsText = null;
-                    if (this._showILS)
-                        ilsText = this.getILSIdent();
-                    if (ilsText) {
-                        this.topTitle.textContent = ilsText;
-                        this.topTitle.setAttribute("state", "ils");
+                    {
+                        let ilsText = null;
+                        if (this._showILS)
+                            ilsText = this.getILSIdent();
+                        if (ilsText) {
+                            this.topTitle.textContent = ilsText;
+                            this.topTitle.setAttribute("state", "ils");
+                        }
+                        else {
+                            this.topTitle.textContent = "";
+                            this.topTitle.removeAttribute("state");
+                        }
+                        break;
                     }
-                    else {
-                        this.topTitle.textContent = "";
-                        this.topTitle.removeAttribute("state");
-                    }
-                    break;
-                }
                 case Jet_NDCompass_Navigation.VOR:
-                {
-                    this.topTitle.textContent = "VOR";
-                    this.topTitle.removeAttribute("state");
-                    break;
-                }
+                    {
+                        this.topTitle.textContent = "VOR";
+                        this.topTitle.removeAttribute("state");
+                        break;
+                    }
                 case Jet_NDCompass_Navigation.ILS:
-                {
-                    this.topTitle.textContent = "ILS";
-                    this.topTitle.removeAttribute("state");
-                    break;
-                }
+                    {
+                        this.topTitle.textContent = "ILS";
+                        this.topTitle.removeAttribute("state");
+                        break;
+                    }
                 default:
-                {
-                    this.topTitle.textContent = "";
-                    break;
-                }
+                    {
+                        this.topTitle.textContent = "";
+                        break;
+                    }
             }
         }
     }
@@ -274,90 +274,90 @@ class Jet_MFD_NDInfo extends HTMLElement {
         if (this.approach != null) {
             switch (this._navMode) {
                 case Jet_NDCompass_Navigation.VOR:
-                {
-                    let vor;
-                    if (this._navSource == 0)
-                        vor = this.gps.radioNav.getBestVORBeacon();
-                    else
-                        vor = this.gps.radioNav.getVORBeacon(this._navSource);
-                    let suffix = "";
-                    if (vor.id == 1 || this._navSource == 1) {
-                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                            suffix = "1";
+                    {
+                        let vor;
+                        if (this._navSource == 0)
+                            vor = this.gps.radioNav.getBestVORBeacon();
                         else
-                            suffix = " L";
-                    }
-                    else if (vor.id == 2 || this._navSource == 2) {
-                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                            suffix = "2";
-                        else
-                            suffix = " R";
-                    }
-                    let type = "VOR";
-                    let freq = "--.--";
-                    let course = "---°";
-                    let ident = "";
-                    if (vor.id > 0) {
-                        freq = vor.freq.toFixed(2);
-                        course = Utils.leadingZeros(Math.round(vor.course), 3) + "°";
-                        ident = vor.ident;
-                        if (this.aircraft == Aircraft.CJ4) {
-                            let hasLocalizer = SimVar.GetSimVarValue("NAV HAS LOCALIZER:" + vor.id, "Bool");
-                            if (hasLocalizer)
-                                type = "LOC";
+                            vor = this.gps.radioNav.getVORBeacon(this._navSource);
+                        let suffix = "";
+                        if (vor.id == 1 || this._navSource == 1) {
+                            if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                                suffix = "1";
+                            else
+                                suffix = " L";
                         }
+                        else if (vor.id == 2 || this._navSource == 2) {
+                            if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                                suffix = "2";
+                            else
+                                suffix = " R";
+                        }
+                        let type = "VOR";
+                        let freq = "--.--";
+                        let course = "---°";
+                        let ident = "";
+                        if (vor.id > 0) {
+                            freq = vor.freq.toFixed(2);
+                            course = Utils.leadingZeros(Math.round(vor.course), 3) + "°";
+                            ident = vor.ident;
+                            if (this.aircraft == Aircraft.CJ4) {
+                                let hasLocalizer = SimVar.GetSimVarValue("NAV HAS LOCALIZER:" + vor.id, "Bool");
+                                if (hasLocalizer)
+                                    type = "LOC";
+                            }
+                        }
+                        this.approachType.textContent = type + suffix;
+                        this.approachFreq.textContent = freq;
+                        this.approachCourse.textContent = course;
+                        this.approachInfo.textContent = ident;
+                        if (this.aircraft != Aircraft.CJ4) {
+                            this.approachFreq.setAttribute("class", "ValueVor");
+                            this.approachCourse.setAttribute("class", "ValueVor");
+                            this.approachInfo.setAttribute("class", "ValueVor");
+                        }
+                        break;
                     }
-                    this.approachType.textContent = type + suffix;
-                    this.approachFreq.textContent = freq;
-                    this.approachCourse.textContent = course;
-                    this.approachInfo.textContent = ident;
-                    if (this.aircraft != Aircraft.CJ4) {
-                        this.approachFreq.setAttribute("class", "ValueVor");
-                        this.approachCourse.setAttribute("class", "ValueVor");
-                        this.approachInfo.setAttribute("class", "ValueVor");
-                    }
-                    break;
-                }
                 case Jet_NDCompass_Navigation.ILS:
-                {
-                    let ils;
-                    if (this._navSource == 0)
-                        ils = this.gps.radioNav.getBestILSBeacon();
-                    else
-                        ils = this.gps.radioNav.getILSBeacon(this._navSource);
-                    let suffix = "";
-                    if (ils.id == 1 || ils.id == 3 || this._navSource == 1) {
-                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                            suffix = "1";
+                    {
+                        let ils;
+                        if (this._navSource == 0)
+                            ils = this.gps.radioNav.getBestILSBeacon();
                         else
-                            suffix = " L";
+                            ils = this.gps.radioNav.getILSBeacon(this._navSource);
+                        let suffix = "";
+                        if (ils.id == 1 || ils.id == 3 || this._navSource == 1) {
+                            if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                                suffix = "1";
+                            else
+                                suffix = " L";
+                        }
+                        else if (ils.id == 2 || ils.id == 4 || this._navSource == 2) {
+                            if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                                suffix = "2";
+                            else
+                                suffix = " R";
+                        }
+                        let type = "ILS";
+                        let freq = "--.--";
+                        let course = "---°";
+                        let ident = "";
+                        if (ils.id > 0) {
+                            freq = ils.freq.toFixed(2);
+                            course = Utils.leadingZeros(Math.round(ils.course), 3) + "°";
+                            ident = ils.name;
+                        }
+                        this.approachType.textContent = type + suffix;
+                        this.approachFreq.textContent = freq;
+                        this.approachCourse.textContent = course;
+                        this.approachInfo.textContent = ident;
+                        if (this.aircraft != Aircraft.CJ4) {
+                            this.approachFreq.setAttribute("class", "ValueIls");
+                            this.approachCourse.setAttribute("class", "ValueIls");
+                            this.approachInfo.setAttribute("class", "ValueIls");
+                        }
+                        break;
                     }
-                    else if (ils.id == 2 || ils.id == 4 || this._navSource == 2) {
-                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                            suffix = "2";
-                        else
-                            suffix = " R";
-                    }
-                    let type = "ILS";
-                    let freq = "--.--";
-                    let course = "---°";
-                    let ident = "";
-                    if (ils.id > 0) {
-                        freq = ils.freq.toFixed(2);
-                        course = Utils.leadingZeros(Math.round(ils.course), 3) + "°";
-                        ident = ils.name;
-                    }
-                    this.approachType.textContent = type + suffix;
-                    this.approachFreq.textContent = freq;
-                    this.approachCourse.textContent = course;
-                    this.approachInfo.textContent = ident;
-                    if (this.aircraft != Aircraft.CJ4) {
-                        this.approachFreq.setAttribute("class", "ValueIls");
-                        this.approachCourse.setAttribute("class", "ValueIls");
-                        this.approachInfo.setAttribute("class", "ValueIls");
-                    }
-                    break;
-                }
             }
         }
     }
@@ -456,29 +456,29 @@ class VORDMENavAid {
             var type = "";
             switch (this.currentState) {
                 case NAV_AID_STATE.ADF:
-                {
-                    type = "ADF";
-                    if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                        type += this.index.toString();
-                    else if (this.index == 1)
-                        type += " L";
-                    else
-                        type += " R";
-                    show = true;
-                    break;
-                }
+                    {
+                        type = "ADF";
+                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                            type += this.index.toString();
+                        else if (this.index == 1)
+                            type += " L";
+                        else
+                            type += " R";
+                        show = true;
+                        break;
+                    }
                 case NAV_AID_STATE.VOR:
-                {
-                    type = "VOR";
-                    if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
-                        type += this.index.toString();
-                    else if (this.index == 1)
-                        type += " L";
-                    else
-                        type += " R";
-                    show = true;
-                    break;
-                }
+                    {
+                        type = "VOR";
+                        if (this.aircraft == Aircraft.A320_NEO || this.aircraft == Aircraft.CJ4)
+                            type += this.index.toString();
+                        else if (this.index == 1)
+                            type += " L";
+                        else
+                            type += " R";
+                        show = true;
+                        break;
+                    }
             }
             if (this.parent != null) {
                 this.parent.style.display = show ? "block" : "none";
@@ -531,15 +531,15 @@ class VORDMENavAid {
             var mode = "";
             switch (this.currentMode) {
                 case NAV_AID_MODE.MANUAL:
-                {
-                    mode = "M";
-                    break;
-                }
+                    {
+                        mode = "M";
+                        break;
+                    }
                 case NAV_AID_MODE.REMOTE:
-                {
-                    mode = "R";
-                    break;
-                }
+                    {
+                        mode = "R";
+                        break;
+                    }
             }
             if (this.modeText != null) {
                 this.modeText.textContent = mode;
