@@ -2916,12 +2916,24 @@
 					<NODE_ID>PUSH_FIRE_APU_TEST</NODE_ID>
 					<ID>APU</ID>
 				</UseTemplate>
+                <UseTemplate Name="ASOBO_AIRLINER_FIRE_AGENT">
+                    <NODE_ID>PUSH_OVHD_FIRE_APU_AGENT</NODE_ID>
+                    <ID>APU</ID>
+                </UseTemplate>
 				<UseTemplate Name="ASOBO_AIRLINER_FIRE_TEST_LIGHTS">
 					<NODE_ID>PUSH_OVHD_FIRE_AGENT</NODE_ID>
 					<ID>APU</ID>
 				</UseTemplate>
+                <UseTemplate Name="ASOBO_AIRLINER_FIRE_GUARD">
+                    <NODE_ID>LOCK_OVHD_APU</NODE_ID>
+                    <ID>APU</id>
+                </UseTemplate>
+                <UseTemplate Name="ASOBO_AIRLINER_FIRE_BUTTON">
+                    <NODE_ID>PUSH_OVHD_FIRE_APU</NODE_ID>
+                    <ID>APU</ID>
+                </UseTemplate>
 				<UseTemplate Name="ASOBO_GT_Component_Emissive_Gauge">
-					<NODE_ID>PUSH_OVHD_FIRE_APU</NODE_ID>
+					<NODE_ID>PUSH_OVHD_FIRE</NODE_ID>
 					<EMISSIVE_CODE>(L:FIRE_TEST_APU, Bool) (L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 0 == or</EMISSIVE_CODE>
 				</UseTemplate>
 			</Component>

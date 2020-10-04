@@ -511,9 +511,15 @@ var A320_Neo_UpperECAM;
                                         action: "PUSH"
                                     },
                                     {
-                                        style: "action",
+                                        style: "action-timer",
+                                        id: "APU",
                                         message: "AGENT",
-                                        action: "DISCH"
+                                        action: "DISCH",
+                                        timerMessage: "AGENT1",
+                                        duration: 10,
+                                        isCompleted:() => {
+                                            return this.getCachedSimVar(`L:XMLVAR_PUSH_OVHD_FIRE_APU_AGENT_Discharge`, "Bool") == 1;
+                                        }
                                     },
                                 ]
                             },
@@ -1124,6 +1130,8 @@ var A320_Neo_UpperECAM;
             this.isInitialised = true;
         }
         update(_deltaTime) {
+            // console.log("engine1", SimVar.GetSimVarValue("L:XMLVAR_PUSH_OVHD_FIRE_ENG1_AGENT1_Discharge", "Bool"));
+            console.log("APU", SimVar.GetSimVarValue("L:XMLVAR_PUSH_OVHD_FIRE_APU_AGENT_Discharge", "Bool"));
             if (!this.isInitialised) {
                 return;
             }

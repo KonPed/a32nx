@@ -334,7 +334,7 @@
 					</EMISSIVE_CODE>
 				</UseTemplate>
 			</Component>
-		</UseTemplate>
+        </Component>
 
 		<Component ID="RMP_NAV_LOCK_#SIDE#" Node="LOCK_RADIO#SIDE#_NAV">
 			<UseTemplate Name="ASOBO_GT_Switch_Code">
